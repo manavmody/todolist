@@ -1,4 +1,4 @@
-//jshint esversion:6
+
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -67,14 +67,14 @@ app.get("/", function(req, res) {
       
     }
     else{
-      res.render("list", {listTitle: "Today", newListItems: foundItems});
+      res.render("list", {listTitle: day, newListItems: foundItems});
 
     }
       
     
     //console.log(foundItems);
   })
-//const day = date.getDate();
+const day = date.getDate();
 });
 
 
@@ -120,7 +120,7 @@ app.post("/", function(req, res){
 
   });
 
-  if(listName === "Today"){
+  if(listName === day){
     item.save();
     res.redirect("/");
   }else{
@@ -142,7 +142,7 @@ app.post("/delete", function(req,res){
   const checkedItemId = req.body.checkbox;
   const listName = req.body.listName;
 
-  if(listName==="Today"){
+  if(listName===day){
     Item.findByIdAndRemove(checkedItemId, function(err){
       if(!err){
         console.log("deleted successfully ");
